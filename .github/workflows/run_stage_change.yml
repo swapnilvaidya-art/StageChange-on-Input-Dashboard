@@ -1,0 +1,32 @@
+name: Stage Change Automation
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Stage_Change.py
+        env:
+          SWAPNIL_SECRET_KEY: ${{ secrets.SWAPNIL_SECRET_KEY }}
+          USERNAME: ${{ secrets.USERNAME }}
+          SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          METABASE_URL: ${{ secrets.METABASE_URL }}
+          STAGE_CHANGE_QUERY: ${{ secrets.STAGE_CHANGE_QUERY }}
+          SHEET_ACCESS_KEY: ${{ secrets.SHEET_ACCESS_KEY }}
+        run: python Stage_Change.py
