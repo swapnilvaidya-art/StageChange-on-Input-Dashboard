@@ -140,21 +140,21 @@ if df.empty:
 else:
     print(f"📊 Rows fetched: {len(df)}")
 
-required_cols = [
-    'lead_created_on', 'modified_on', 'prospect_email', 'prospect_id', 'prospect_stage',
-    'mx_prospect_status', 'crm_user_role', 'sales_user_email', 'mx_utm_medium',
-    'mx_utm_source', 'mx_lead_quality_grade', 'mx_lead_inherent_intent',
-    'mx_priority_status', 'mx_organic_inbound', 'lead_last_call_status',
-    'mx_city', 'event', 'current_stage', 'previous_stage',
-    'mx_identifer', 'mx_phoenix_identifer'
-]
+    required_cols = [
+        'lead_created_on', 'modified_on', 'prospect_email', 'prospect_id', 'prospect_stage',
+        'mx_prospect_status', 'crm_user_role', 'sales_user_email', 'mx_utm_medium',
+        'mx_utm_source', 'mx_lead_quality_grade', 'mx_lead_inherent_intent',
+        'mx_priority_status', 'mx_organic_inbound', 'lead_last_call_status',
+        'mx_city', 'event', 'current_stage', 'previous_stage',
+        'mx_identifer', 'mx_phoenix_identifer'
+    ]
 
-missing_cols = [col for col in required_cols if col not in df.columns]
-if missing_cols:
-    raise ValueError(f"❌ Missing columns from query: {missing_cols}")
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        raise ValueError(f"❌ Missing columns from query: {missing_cols}")
 
-df = df[required_cols]
-df = sanitize_df(df)
+    df = df[required_cols]
+    df = sanitize_df(df)
 
     print("🔗 Connecting to Google Sheets...")
     sheet = gc.open_by_key(SAK)
